@@ -45,6 +45,7 @@ public class PlayerScript : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.A))
             {
+                Debug.Log("Got A key");
                 if (rb.velocity.x > (-sprintSpeed))
                 {
                     rb.AddForce(new Vector2(-sprintAccelSpeed, 0));
@@ -65,35 +66,36 @@ public class PlayerScript : MonoBehaviour {
                     rb.velocity = new Vector3(sprintSpeed, rb.velocity.y, 0);
                 }
             }
-            else
+        }
+        else
+        {
+            //Walking
+            //Goal: check to see if the velocity of the rigidbody is greater than the walkspeed, if it is then add the walkspeed force to the game object.
+            //Reasons: We want this so we can have deceleration on moving
+            if (Input.GetKey(KeyCode.A))
             {
-                //Walking
-                //Goal: check to see if the velocity of the rigidbody is greater than the walkspeed, if it is then add the walkspeed force to the game object.
-                //Reasons: We want this so we can have deceleration on moving
-                if (Input.GetKey(KeyCode.A))
+                if (rb.velocity.x > (-walkSpeed))
                 {
-                    if (rb.velocity.x > (-walkSpeed))
-                    {
-                        rb.AddForce(new Vector2(-accelSpeed, 0));
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector3(-walkSpeed, rb.velocity.y, 0);
-                    }
+                    rb.AddForce(new Vector2(-accelSpeed, 0));
                 }
-                else if (Input.GetKey(KeyCode.D))
+                else
                 {
-                    if (rb.velocity.x < (walkSpeed))
-                    {
-                        rb.AddForce(new Vector2(accelSpeed, 0));
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector3(walkSpeed, rb.velocity.y, 0);
-                    }
+                    rb.velocity = new Vector3(-walkSpeed, rb.velocity.y, 0);
+                }
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                if (rb.velocity.x < (walkSpeed))
+                {
+                    rb.AddForce(new Vector2(accelSpeed, 0));
+                }
+                else
+                {
+                    rb.velocity = new Vector3(walkSpeed, rb.velocity.y, 0);
                 }
             }
         }
+        
     }
 
 
