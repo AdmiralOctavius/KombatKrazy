@@ -16,13 +16,31 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
 
     public float fallSpeed = 5f;
-    public float wallSlideSpeed = 1f;
+    
     public float sprintSpeed = 7f;
     public float walkSpeed = 6f;
 
     //Testing an acceleration speed
     public float accelSpeed = 10f;
     public float sprintAccelSpeed = 15f;
+
+    //Jumping variables
+    public float jumpForce = 300f;
+    bool currentlyJumping;
+    public float jumpFallSpeed = -10f;
+    public float JumpTimeLim = 2;
+    float jumpStartTime = 0f;
+    float jumpEndTime = 0f;
+
+    //Wallsliding variables
+    public bool wallSliding = false;
+    public float wallSlideSpeed = -1f;
+    public float wallSlideSpeedSprint = -0.75f;
+
+    //This might be deprecated to just jump force
+    public float wallSlideJumpY = 350f;
+    public float wallSlideJumpX = 50f;
+    public float wallSlideSprintJumpX = 150f;
 
     // Use this for initialization
     void Start () {
@@ -43,29 +61,49 @@ public class PlayerScript : MonoBehaviour {
         //Goals: Setup a responsive sprint that accelerates faster than walking
         if (Input.GetKey(KeyCode.LeftShift))
         {
+
             if (Input.GetKey(KeyCode.A))
             {
-                Debug.Log("Got A key");
-                if (rb.velocity.x > (-sprintSpeed))
+                if (wallSliding)
                 {
-                    rb.AddForce(new Vector2(-sprintAccelSpeed, 0));
+                    //Todo- setup raycast at each point and grab the opposite side of collider
+                    //Can detect collision point instead as well-> https://answers.unity.com/questions/783377/detect-side-of-collision-in-box-collider-2d.html
+                    //Raycast may be easier?
+                    rb.velocity = new Vector3(0, wallSlideSpeedSprint, 0);
                 }
                 else
                 {
-                    rb.velocity = new Vector3(-sprintSpeed, rb.velocity.y, 0);
+
+                    if (rb.velocity.x > (-sprintSpeed))
+                    {
+                        rb.AddForce(new Vector2(-sprintAccelSpeed, 0));
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(-sprintSpeed, rb.velocity.y, 0);
+                    }
                 }
             }
+
             else if (Input.GetKey(KeyCode.D))
             {
-                if (rb.velocity.x < (sprintSpeed))
+                if (wallSliding)
                 {
-                    rb.AddForce(new Vector2(sprintAccelSpeed, 0));
+                    rb.velocity = new Vector3(0, wallSlideSpeedSprint, 0);
                 }
                 else
                 {
-                    rb.velocity = new Vector3(sprintSpeed, rb.velocity.y, 0);
+                    if (rb.velocity.x < (sprintSpeed))
+                    {
+                        rb.AddForce(new Vector2(sprintAccelSpeed, 0));
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(sprintSpeed, rb.velocity.y, 0);
+                    }
                 }
             }
+
         }
         else
         {
@@ -74,13 +112,21 @@ public class PlayerScript : MonoBehaviour {
             //Reasons: We want this so we can have deceleration on moving
             if (Input.GetKey(KeyCode.A))
             {
-                if (rb.velocity.x > (-walkSpeed))
+                if (wallSliding)
                 {
-                    rb.AddForce(new Vector2(-accelSpeed, 0));
+                    rb.velocity = new Vector3(0, wallSlideSpeed, 0);
                 }
                 else
                 {
-                    rb.velocity = new Vector3(-walkSpeed, rb.velocity.y, 0);
+                    if (rb.velocity.x > (-walkSpeed))
+                    {
+                        rb.AddForce(new Vector2(-accelSpeed, 0));
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(-walkSpeed, rb.velocity.y, 0);
+                    }
+
                 }
             }
             else if (Input.GetKey(KeyCode.D))
@@ -95,9 +141,81 @@ public class PlayerScript : MonoBehaviour {
                 }
             }
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!currentlyJumping)
+            {
+                //rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0);
+                rb.AddForce(new Vector2(0, jumpForce));
+                currentlyJumping = true;
+                jumpStartTime = Time.time;
+
+            }
+            if (wallSliding)
+            {
+                rb.AddForce(new Vector2(wallSlideJumpX, wallSlideJumpY));
+            }
+        }
+        else if (Input.GetKey(KeyCode.Space) && currentlyJumping)
+        {
+            if(rb.velocity.y < 0)
+            {
+                if(rb.velocity.y > jumpFallSpeed)
+                {
+                    //Do nothing
+                }
+                //Here we're establishing a cap on downward velocity
+                if(rb.velocity.y < jumpFallSpeed)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, jumpFallSpeed, 0);
+                }
+            }
+            else
+            {
+                //Could setup a cap on fall speed, but in testing I liked being able to set the fall speed by own accord
+                //Deprecated, but kept as artifact
+                if((jumpEndTime - jumpStartTime) > JumpTimeLim)
+                {
+
+                }
+            }
+        }
+        /*
+        if (currentlyJumping)
+        {
+            jumpEndTime = Time.time;
+        }
+        else
+        {
+            jumpEndTime = 0;
+            jumpStartTime = 0;
+        }*/
     }
 
+    //Some bug here where it sometimes allows for the player to double jump
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        currentlyJumping = false;
+    }
+
+
+    //This method is a little finnicky
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "StdWall")
+        {
+            wallSliding = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "StdWall")
+        {
+            wallSliding = false;
+        }
+    }
 
 
 
