@@ -116,7 +116,13 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (wallSliding)
                 {
-                    RaycastHit2D ray = Physics2D.Raycast(new Vector2(1f,0), Vector2.right, 1f);
+                    RaycastHit2D ray = Physics2D.Raycast(this.transform.position, Vector2.right, 13f, 8);
+                    //
+                    //Physics2D.OverlapBox ()
+                    //
+                    //
+                    //Vector3.Dot
+                    //
                     if (ray.collider != null)
                     {
                         Debug.Log(ray.collider.tag);
@@ -124,7 +130,7 @@ public class PlayerScript : MonoBehaviour {
                         if (ray.collider.tag == "StdWall")
                         {
                             Debug.Log("Got here");
-                            rb.AddForce(new Vector2(-accelSpeed / 2, 0));
+                            rb.AddForce(new Vector2(-accelSpeed, 0));
                             wallSliding = false;
                         }
                         else
