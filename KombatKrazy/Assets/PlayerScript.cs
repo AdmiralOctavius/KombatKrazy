@@ -69,7 +69,8 @@ public class PlayerScript : MonoBehaviour {
                     //Todo- setup raycast at each point and grab the opposite side of collider
                     //Can detect collision point instead as well-> https://answers.unity.com/questions/783377/detect-side-of-collision-in-box-collider-2d.html
                     //Raycast may be easier?
-                    rb.velocity = new Vector3(0, wallSlideSpeedSprint, 0);
+                    rb.AddForce(new Vector2(-sprintAccelSpeed/2, 0));
+                    rb.velocity = new Vector3(rb.velocity.x, wallSlideSpeedSprint, 0);
                 }
                 else
                 {
@@ -89,7 +90,8 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (wallSliding)
                 {
-                    rb.velocity = new Vector3(0, wallSlideSpeedSprint, 0);
+                    rb.AddForce(new Vector2(-sprintAccelSpeed/2, 0));
+                    rb.velocity = new Vector3(rb.velocity.x, wallSlideSpeedSprint, 0);
                 }
                 else
                 {
@@ -114,7 +116,26 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (wallSliding)
                 {
-                    rb.velocity = new Vector3(0, wallSlideSpeed, 0);
+                    RaycastHit2D ray = Physics2D.Raycast(new Vector2(1f,0), Vector2.right, 1f);
+                    if (ray.collider != null)
+                    {
+                        Debug.Log(ray.collider.tag);
+
+                        if (ray.collider.tag == "StdWall")
+                        {
+                            Debug.Log("Got here");
+                            rb.AddForce(new Vector2(-accelSpeed / 2, 0));
+                            wallSliding = false;
+                        }
+                        else
+                        {
+                            rb.velocity = new Vector3(rb.velocity.x, wallSlideSpeed, 0);
+
+                        }
+                    }
+                    else{
+                        Debug.Log("No go");
+                    }
                 }
                 else
                 {
@@ -131,13 +152,21 @@ public class PlayerScript : MonoBehaviour {
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                if (rb.velocity.x < (walkSpeed))
+                if (wallSliding)
                 {
-                    rb.AddForce(new Vector2(accelSpeed, 0));
+                    
+                    rb.velocity = new Vector3(rb.velocity.x, wallSlideSpeed, 0);
                 }
                 else
                 {
-                    rb.velocity = new Vector3(walkSpeed, rb.velocity.y, 0);
+                    if (rb.velocity.x < (walkSpeed))
+                    {
+                        rb.AddForce(new Vector2(accelSpeed, 0));
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(walkSpeed, rb.velocity.y, 0);
+                    }
                 }
             }
         }

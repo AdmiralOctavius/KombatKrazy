@@ -439,7 +439,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95037985, y: 1.959656}
+  m_Size: {x: 0.91, y: 1.959656}
   m_EdgeRadius: 0
 --- !u!50 &666435787
 Rigidbody2D:
@@ -473,7 +473,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0026428998, y: -1.0112687}
+  m_Offset: {x: 0.021402031, y: -1.0112687}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -484,7 +484,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9088213, y: 0.0754385}
+  m_Size: {x: 0.65827066, y: 0.0754385}
   m_EdgeRadius: 0
 --- !u!1 &1036472540
 GameObject:
@@ -724,7 +724,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1796574985}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 4.06, y: 4.09, z: 0.0027292296}
+  m_LocalPosition: {x: 4.06, y: 4.09, z: 0}
   m_LocalScale: {x: 9.18213, y: 0.382, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1805380004}
   - component: {fileID: 1805380003}
   m_Layer: 0
-  m_Name: New Sprite (3)
+  m_Name: GravPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
