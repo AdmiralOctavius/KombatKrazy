@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour {
 
+    public AudioClip laserStart;
+    public AudioClip fullLaserClip;
+    public AudioSource aPlayer;
 	// Use this for initialization
 	void Start () {
 		
@@ -13,4 +16,16 @@ public class Laser : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void startLzr()
+    {
+        aPlayer.clip = laserStart;
+        aPlayer.Play();
+    }
+
+    void fullLaser()
+    {
+        aPlayer.clip = fullLaserClip;
+        aPlayer.Play();
+    } 
 }
