@@ -29,6 +29,7 @@ public class SpeedShoes : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {
             col.GetComponent<PlayerScript>().sprintBoots = true;
+            FindObjectOfType<GoalPost>().gameObject.GetComponent<GoalPost>().HasSprintBoots = true;
             this.gameObject.SetActive(false);
         }
 

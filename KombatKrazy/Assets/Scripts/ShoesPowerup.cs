@@ -30,6 +30,7 @@ public class ShoesPowerup : MonoBehaviour {
         {
             col.GetComponent<PlayerScript>().farWallJump = true;
             this.gameObject.SetActive(false);
+            
         }
 
     }

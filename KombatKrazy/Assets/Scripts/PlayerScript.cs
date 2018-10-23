@@ -72,8 +72,38 @@ public class PlayerScript : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
-		
-	}
+
+        int result = 0;
+        if (PlayerPrefs.HasKey("HasFarWallJump"))
+        {
+            result = PlayerPrefs.GetInt("HasFarWallJump");
+        }
+        if(result == 1)
+        {
+            farWallJump = true;
+        }
+
+        result = 0;
+        if (PlayerPrefs.HasKey("HasSpeedBoots"))
+        {
+            result = PlayerPrefs.GetInt("HasSpeedBoots");
+        }
+        if(result == 1)
+        {
+            sprintBoots = true;
+        }
+
+        result = 0;
+        if (PlayerPrefs.HasKey("HasDoubleJump"))
+        {
+            result = PlayerPrefs.GetInt("HasDoubleJump");
+        }
+        if (result == 1)
+        {
+            doubleJumpBoots  = true;
+        }
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -215,7 +245,7 @@ public class PlayerScript : MonoBehaviour {
                                 timeToWallUnstick = wallStickTime;
                                 if (right == false)
                                 {
-                                    rb.velocity = new Vector2(-sprintSpeed, 0);
+                                    //rb.velocity = new Vector2(-sprintSpeed, 0);
                                 }
                             }
 
@@ -258,7 +288,7 @@ public class PlayerScript : MonoBehaviour {
                                 timeToWallUnstick = wallStickTime;
                                 if (right == true)
                                 {
-                                    rb.velocity = new Vector2(sprintSpeed, 0);
+                                    //rb.velocity = new Vector2(sprintSpeed, 0);
                                 }
                             }
                             
@@ -448,7 +478,8 @@ public class PlayerScript : MonoBehaviour {
             
             Vector3 contactPoint = col.contacts[0].point;
             Vector3 center = collider.bounds.center;
-
+		//This is the important bit here. Essentially stating that right is true 
+		//when the opposing object's X or Y CENTER value is greater than the Player's
             right = contactPoint.x > center.x;
             top = contactPoint.y > center.y;
 

@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GoalPost : MonoBehaviour {
 
+    public bool HasWallJump = false;
+    public bool HasSprintBoots = false;
+    public bool HasDoubleBoots = false;
+    public string NextLevel = "menu";
 	// Use this for initialization
 	void Start () {
 		
@@ -19,7 +23,23 @@ public class GoalPost : MonoBehaviour {
     {
         if(col.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("Level1");
+            if (HasWallJump)
+            {
+                PlayerPrefs.SetInt("HasFarWallJump", 1);
+                PlayerPrefs.Save();
+            }
+            if (HasSprintBoots)
+            {
+                PlayerPrefs.SetInt("HasSpeedBoots", 1);
+                PlayerPrefs.Save();
+            }
+            if (HasDoubleBoots)
+            {
+                PlayerPrefs.SetInt("HasDoubleJump", 1);
+                PlayerPrefs.Save();
+            }
+
+            SceneManager.LoadScene(NextLevel);
         }
     }
     
