@@ -14,10 +14,8 @@ public class ButtonScript : MonoBehaviour {
 
     public void Exit()
     {
-#if UNITY_EDITOR
+
         Application.Quit();//Only for built exe files
-#else
-        EditorApplication.isPlaying = false;
-#endif
+
     }
 }

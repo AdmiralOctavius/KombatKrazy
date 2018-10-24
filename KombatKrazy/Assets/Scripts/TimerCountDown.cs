@@ -8,6 +8,9 @@ public class TimerCountDown : MonoBehaviour {
     //public Text timerCount;
     public GameObject globals;
     public int timeLeftLocal;
+
+    public int minutes;
+    public int seconds;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,6 +19,8 @@ public class TimerCountDown : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timeLeftLocal = (int)globals.GetComponent<Globals>().timeLeft;
-        gameObject.GetComponent<Text>().text = timeLeftLocal.ToString();
+        minutes = timeLeftLocal / 60;
+        seconds = timeLeftLocal % 60;
+        gameObject.GetComponent<Text>().text = minutes + " " + seconds;
 	}
 }

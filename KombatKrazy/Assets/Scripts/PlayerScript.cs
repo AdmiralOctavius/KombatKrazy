@@ -6,12 +6,14 @@
  * 
  * 
  * 
+ * 
  * */
 
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour {
 
@@ -69,9 +71,27 @@ public class PlayerScript : MonoBehaviour {
     public bool notDoubleJumped = false;
     public float doubleJumpSpeed = 2.5f;
     public bool sprintBoots = false;
+
+    //Animator
+    public Animator anim;
+    SpriteRenderer spriteMan;
+
+    //Jump Sound
+    AudioSource AudioPlayer;
     
     // Use this for initialization
     void Start () {
+        spriteMan = gameObject.GetComponent<SpriteRenderer>();
+        AudioPlayer = gameObject.GetComponent<AudioSource>();
+        Scene scene;
+        scene = SceneManager.GetActiveScene();
+        if (scene.name == "level1" || scene.name == "tutorialLevel")
+        {
+            Debug.Log("got here");
+            PlayerPrefs.DeleteAll();
+        }
+        
+
 
         int result = 0;
         if (PlayerPrefs.HasKey("HasFarWallJump"))
@@ -122,6 +142,7 @@ public class PlayerScript : MonoBehaviour {
             }
             if (wallSliding)
             {
+                AudioPlayer.Play();
                 inWallJump = true;
                 wallSliding = false;
                 currentlyJumping = true;
@@ -129,6 +150,7 @@ public class PlayerScript : MonoBehaviour {
                 
                 if (Input.GetKey(KeyCode.A))
                 {
+                    spriteMan.flipX = true;
                     if(right == true)
                     {
                         //Sticky jump
@@ -149,7 +171,8 @@ public class PlayerScript : MonoBehaviour {
                 }
                 else if (Input.GetKey(KeyCode.D))
                 {
-                    if(right == true)
+                    spriteMan.flipX = false;
+                    if (right == true)
                     {
                         if (farWallJump)
                         {
@@ -188,7 +211,7 @@ public class PlayerScript : MonoBehaviour {
 
             if (!currentlyJumping)
             {
-
+                AudioPlayer.Play();
                 rb.AddForce(new Vector2(0, jumpForce));
                 currentlyJumping = true;
                 jumpStartTime = Time.time;               
@@ -201,7 +224,7 @@ public class PlayerScript : MonoBehaviour {
 
         }
 
-
+        
     }
 
     void FixedUpdate()
@@ -218,15 +241,17 @@ public class PlayerScript : MonoBehaviour {
            
                 if (Input.GetKey(KeyCode.A))
                 {
-
-                    if (inWallJump)
+                
+                if (inWallJump)
                     {
-                        rb.AddForce(new Vector2(-sprintSpeed / 2, 0));
+                    spriteMan.flipX = true;
+                    rb.AddForce(new Vector2(-sprintSpeed / 2, 0));
                         
                     }
                     else if(wallSliding)
                     {
-                        if (right == true)
+                    spriteMan.flipX = false;
+                    if (right == true)
                         {                        
                             //Todo- setup raycast at each point and grab the opposite side of collider
                             //Can detect collision point instead as well-> https://answers.unity.com/questions/783377/detect-side-of-collision-in-box-collider-2d.html
@@ -236,7 +261,8 @@ public class PlayerScript : MonoBehaviour {
                         }
                         else
                         {
-                            if (timeToWallUnstick > 0)
+                        
+                        if (timeToWallUnstick > 0)
                             {
                                 timeToWallUnstick -= Time.deltaTime;
                             }
@@ -254,7 +280,8 @@ public class PlayerScript : MonoBehaviour {
                 }
                     else
                     {
-                        if (rb.velocity.x > -sprintSpeed)
+                    spriteMan.flipX = true;
+                    if (rb.velocity.x > -sprintSpeed)
                         {
                             rb.AddForce(new Vector2(-sprintAccelSpeed, 0));
                         }
@@ -267,13 +294,16 @@ public class PlayerScript : MonoBehaviour {
 
                 else if (Input.GetKey(KeyCode.D))
                 {
-                    if (inWallJump)
+               
+                if (inWallJump)
                     {
-                        rb.AddForce(new Vector2(-sprintSpeed / 2, 0));
+                    spriteMan.flipX = false;
+                    rb.AddForce(new Vector2(-sprintSpeed / 2, 0));
                     }
                     else if (wallSliding)
                     {
-                        if (right == false)
+                    spriteMan.flipX = true;
+                    if (right == false)
                         {                                          
                             rb.velocity = new Vector2(0, wallSlideSpeedSprint);
                         }
@@ -298,7 +328,8 @@ public class PlayerScript : MonoBehaviour {
                 }
                     else
                     {
-                        if (rb.velocity.x < sprintSpeed)
+                    spriteMan.flipX = false;
+                    if (rb.velocity.x < sprintSpeed)
                         {
                             rb.AddForce(new Vector2(sprintAccelSpeed, 0));
                         }
@@ -320,13 +351,16 @@ public class PlayerScript : MonoBehaviour {
             //Reasons: We want this so we can have deceleration on moving
             if (Input.GetKey(KeyCode.A))
             {
+            
                 if (inWallJump)
                 {
+                    spriteMan.flipX = true;
                     rb.AddForce(new Vector2(-accelSpeed/1.5f, 0));
                 }
                 else if (wallSliding)
-                {   
-                    if(right == true)
+                {
+                    spriteMan.flipX = false;
+                    if (right == true)
                     { 
                         rb.velocity = new Vector2(0, wallSlideSpeed);
                     }
@@ -349,6 +383,7 @@ public class PlayerScript : MonoBehaviour {
                 }
                 else
                 {
+                    spriteMan.flipX = true;
                     if (rb.velocity.x > (-walkSpeed))
                     {
                         rb.AddForce(new Vector2(-accelSpeed, 0));
@@ -361,12 +396,15 @@ public class PlayerScript : MonoBehaviour {
             }
             else if (Input.GetKey(KeyCode.D))
             {
+                
                 if (inWallJump)
                 {
+                    spriteMan.flipX = false;
                     rb.AddForce(new Vector2(accelSpeed /1.5f, 0));
                 }
                 else if (wallSliding)
                 {
+                    spriteMan.flipX = true;
                     if (right == false)
                     {
                         rb.velocity = new Vector2(0, wallSlideSpeed);
@@ -389,6 +427,7 @@ public class PlayerScript : MonoBehaviour {
                 }                
                 else
                 {
+                    spriteMan.flipX = false;
                     if (rb.velocity.x < (walkSpeed))
                     {
                         rb.AddForce(new Vector2(accelSpeed, 0));
@@ -418,8 +457,9 @@ public class PlayerScript : MonoBehaviour {
                 //Here we're establishing a cap on downward velocity if held button
                 if (rb.velocity.y < jumpFallSpeed && playerFallingHeld == true)
                 {
-                    
-                    rb.velocity = new Vector3(rb.velocity.x, jumpFallSpeed, 0);
+
+                    //rb.velocity = new Vector3(rb.velocity.x, jumpFallSpeed, 0);
+                    rb.AddForce(new Vector2(0, jumpFallSpeed), ForceMode2D.Force);
                     
                 }
             }
@@ -447,6 +487,24 @@ public class PlayerScript : MonoBehaviour {
 
         //Debug.Log(rb.velocity.x.ToString());
 
+        if(rb.velocity != new Vector2(0, 0))
+        {
+            anim.SetBool("moving", true);
+        }
+        else
+        {
+            anim.SetBool("moving", false);
+        }
+
+        if (wallSliding)
+        {
+            anim.SetBool("wallSliding", true);
+
+        }
+        else
+        {
+            anim.SetBool("wallSliding", false);
+        }
     }
 
     //Some bug here where it sometimes allows for the player to double jump

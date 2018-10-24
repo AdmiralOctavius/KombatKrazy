@@ -111,10 +111,7 @@ public class movingPlatform : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player")
-        {
-            ConnectTo(col.gameObject.GetComponent<Rigidbody2D>());
-        }
+        
     }
 
     void OnCollisionEnter2D(Collision collision)
@@ -126,6 +123,10 @@ public class movingPlatform : MonoBehaviour
             {
                 // upon collision, record our distance and use it as an offset.
                 joint.anchor = new Vector2(0f, Mathf.Abs(transform.position.y - collision.transform.position.y));
+                if (collision.gameObject.tag == "Player")
+                {
+                    ConnectTo(collision.gameObject.GetComponent<Rigidbody2D>());
+                }
             }
         }
     }

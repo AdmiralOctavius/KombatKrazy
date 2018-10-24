@@ -24,6 +24,10 @@ GameObject:
   - component: {fileID: 61168859303051810}
   - component: {fileID: 114125701695149632}
   - component: {fileID: 61030491741377510}
+  - component: {fileID: 95627385584333088}
+  - component: {fileID: 114666545209609070}
+  - component: {fileID: 81344817827672102}
+  - component: {fileID: 82388387999640520}
   m_Layer: 8
   m_Name: PlayerTemp
   m_TagString: Player
@@ -40,7 +44,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4045755651903180}
   - component: {fileID: 20254998072532990}
-  - component: {fileID: 81773931343522550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -147,18 +150,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021402031, y: -1.0112687}
+  m_Offset: {x: 0.021402031, y: -1.5406337}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.024, y: 2.048}
+    oldSize: {x: 1.024, y: 3.072}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65827066, y: 0.0754385}
+  m_Size: {x: 0.65827066, y: 0.08116174}
   m_EdgeRadius: 0
 --- !u!61 &61168859303051810
 BoxCollider2D:
@@ -172,26 +175,139 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0073616505}
+  m_Offset: {x: 0, y: -0.28276837}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.024, y: 2.048}
+    oldSize: {x: 1.024, y: 3.072}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.91, y: 1.959656}
+  m_Size: {x: 0.91, y: 2.5104694}
   m_EdgeRadius: 0
---- !u!81 &81773931343522550
+--- !u!81 &81344817827672102
 AudioListener:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1934368129984922}
+  m_GameObject: {fileID: 1391944575866678}
   m_Enabled: 1
+--- !u!82 &82388387999640520
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391944575866678}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 47fd8223c7f524b4f9a394bd59a5205e, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!95 &95627385584333088
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391944575866678}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d37803c4701842645869c47c733c4cb0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114125701695149632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,13 +320,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
-  sprintSpeed: 10
+  sprintSpeed: 7
   walkSpeed: 4
   accelSpeed: 10
   sprintAccelSpeed: 15
   jumpForce: 300
   currentlyJumping: 0
-  jumpFallSpeed: -4
+  jumpFallSpeed: 2
   JumpTimeLim: 2
   wallSliding: 0
   wallSlideSpeed: -0.4
@@ -232,6 +348,20 @@ MonoBehaviour:
   notDoubleJumped: 0
   doubleJumpSpeed: 2.5
   sprintBoots: 0
+  anim: {fileID: 95627385584333088}
+--- !u!114 &114666545209609070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391944575866678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77577b2e30bfe4f458c22c083a947f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  dead: 0
 --- !u!212 &212552880945493536
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -267,7 +397,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5b834872418af0543bb1f40afc08a48f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08ee736b1ab01d4488cfb7c6d87ee12f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
